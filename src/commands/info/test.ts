@@ -47,10 +47,7 @@ export default new Command({
             if (msg.content.match(regex) == null) return;
 
             const id = msg.author.id;
-            const user_with_msgs = map.has(id) ? map.get(id) : Object.assign({ messages: <Message[]>[], channel: channel }, msg.author);
-
-            // Typescript doesn't keep track of get and set methods of a map, so I have to explicitly assert here
-            assert(user_with_msgs !== undefined);
+            const user_with_msgs = map.has(id) ? map.get(id)! : Object.assign({ messages: <Message[]>[], channel: channel }, msg.author);
 
             user_with_msgs.messages.push(msg);
             map.set(id, Object.assign(user_with_msgs, msg.author));
