@@ -1,14 +1,15 @@
 import { QueryType } from "discord-player";
 import { player } from "../..";
 import { Command } from "../../classes/Command";
+import { isURL } from "../../utils/music";
 
 export default new Command({
   name: "play",
   description: "Plays the fucking music",
   options: [
     {
-      name: "url",
-      description: "URL of the song on youtube",
+      name: "song",
+      description: "Song to search for or the YT link of the song",
       type: "STRING",
       required: true,
     },
@@ -23,19 +24,23 @@ export default new Command({
 
     if (!queue.connection) await queue.connect(channel);
 
-    let url = interaction.options.getString("url", true);
-
-    const result = await player.search(url, {
-      requestedBy: interaction.member,
-      searchEngine: QueryType.YOUTUBE_VIDEO
-    });
+    let query = interaction.options.getString("song", true);
+    const result = isURL(query)
+      ? await player.search(query, {
+        requestedBy: interaction.member,
+        searchEngine: QueryType.YOUTUBE_VIDEO
+      })
+      : await player.search(query, {
+        requestedBy: interaction.member,
+        searchEngine: QueryType.YOUTUBE_SEARCH
+      })
 
     if (!result.tracks.length) {
       return interaction.followUp("**Not found.**");
     }
 
     const song = result.tracks[0];
-    await queue.addTrack(song);
+    queue.addTrack(song);
 
     if (!queue.playing) await queue.play();
     return interaction.followUp(`**${song.title}** Added to queue (\`${song.duration}\`)!`);
