@@ -1,7 +1,7 @@
 import { CommandInteractionOptionResolver } from "discord.js";
 import { client } from "..";
 import { Event } from "../classes/Event";
-import { ExtendedInteraction } from "../typings/Command";
+import { ExtendedInteraction } from "../typings/command";
 
 export default new Event("interactionCreate", async (interaction) => {
     // Chat Input Commands
