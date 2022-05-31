@@ -28,6 +28,6 @@ export default new Command({
         text: `Requested by ${interaction.user.username}#${interaction.user.discriminator}`,
         iconURL: interaction.user.displayAvatarURL(),
       });
-    interaction.followUp({ embeds: [embed] });
+    return interaction.followUp({ embeds: [embed] });
   },
 });
