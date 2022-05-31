@@ -31,7 +31,7 @@ export const NSFW_CHOICES: ApplicationCommandOptionChoiceData[] = [
   { name: "blowjob", value: "blowjob" },
   { name: "random", value: "random" }
 ];
-
-export const fileName = (type: "sfw" | "nsfw", endpoint: string): string => {
-  return `${type === "nsfw" ? "SPOILER_" : ""}${endpoint}.png`;
+// TODO: Add option if command is called from nsfw channel, then do not add spoiler tag
+export const fileName = (endpoint: string, isSpoiler: boolean): string => {
+  return `${isSpoiler ? "SPOILER_" : ""}${endpoint}.png`;
 }

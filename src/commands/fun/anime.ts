@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { TextChannel } from "discord.js";
 import { Command } from "../../classes/Command";
 import { ANIME_API_URL, fileName, NSFW_CHOICES, SFW_CHOICES } from "../../utils/anime";
 
@@ -43,10 +44,14 @@ export default new Command({
         responseType: "arraybuffer"
       });
       const imageBuffer = Buffer.from(data);
-      return interaction.followUp({files: [{name: fileName(type, endpoint), attachment: imageBuffer}]});
+      const isSpoiler = !(interaction.channel as TextChannel).nsfw && type === "nsfw";
+      return interaction.followUp({files: [{name: fileName(endpoint, isSpoiler), attachment: imageBuffer}]});
     } catch (e) {
       console.error(e);
-      return interaction.followUp("Something went wrong!");
+      if (e instanceof AxiosError && e.response.status >= 500) {
+        return interaction.followUp("Something went wrong! Try again!");
+      }
+      return interaction.followUp("Uncaught error! Please notify the developer!");
     }
   }
 });
