@@ -40,13 +40,13 @@ export default new Command({
       const body = response.data;
       const city = body.name;
       const temp = (body.main.temp > 0 ? '+' : '') + body.main.temp + convertUnits(units);
-      interaction.followUp(`${city}: ${temp}`);
+      return interaction.followUp(`${city}: ${temp}`);
     } catch (e) {
       if (e instanceof AxiosError) {
-        interaction.followUp(`Could not find \`${city}\``);
+        return interaction.followUp(`Could not find \`${city}\``);
       } else if (e instanceof TypeError) {
         console.error(e);
-        interaction.followUp(`Something went wrong`);
+        return interaction.followUp(`Something went wrong`);
       }
     }
   }
