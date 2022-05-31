@@ -16,10 +16,10 @@ export default new Command({
       required: false,
     }
   ],
-  run: async ({ interaction }) => {
-    const queue = await player.getQueue(interaction.member.guild);
+  run: async ({ interaction, args }) => {
+    const queue = player.getQueue(interaction.member.guild);
     if (!queue || !queue.playing) return interaction.followUp("**No music is being played!**");
-    const page = interaction.options.getInteger("page") ?? 1;
+    const page = args.getInteger("page") ?? 1;
     const pageStart = TRACKS_ON_PAGE * (page - 1);
     const pageEnd = pageStart + TRACKS_ON_PAGE;
     const currentTrack = queue.current;

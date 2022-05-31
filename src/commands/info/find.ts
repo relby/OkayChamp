@@ -28,9 +28,9 @@ export default new Command({
       required: true,
     },
   ],
-  run: async ({ interaction }) => {
-    const word = interaction.options.getString("word", true).trim();
-    const channel = interaction.options.getChannel("channel", true) as TextChannel;
+  run: async ({ interaction, args }) => {
+    const word = args.getString("word", true).trim();
+    const channel = args.getChannel("channel", true) as TextChannel;
 
     const map: Collection<Snowflake, UserWithMessagesInChannel> = new Collection();
     let msg_ptr = await channel.messages

@@ -29,9 +29,9 @@ export default new Command({
       required: false,
     }
   ],
-  run: async ({ interaction }) => {
-    const city = interaction.options.getString("city", true);
-    const units = (interaction.options.getString("units") ?? "metric") as Units;
+  run: async ({ interaction, args }) => {
+    const city = args.getString("city", true);
+    const units = (args.getString("units") ?? "metric") as Units;
 
     const { WEATHER_API_URL, WEATHER_API_TOKEN } = process.env;
     const params = { "q": city, "units": units, "appid": WEATHER_API_TOKEN }
@@ -40,7 +40,6 @@ export default new Command({
       const body = response.data;
       const city = body.name;
       const temp = (body.main.temp > 0 ? '+' : '') + body.main.temp + convertUnits(units);
-      console.log(body);
       interaction.followUp(`${city}: ${temp}`);
     } catch (e) {
       if (e instanceof AxiosError) {

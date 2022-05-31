@@ -12,8 +12,8 @@ export default new Command({
       required: false,
     },
   ],
-  run: ({ interaction }) => {
-    const user = (interaction.options.getUser("user") ?? interaction.user) as User;
+  run: ({ interaction, args }) => {
+    const user = (args.getUser("user") ?? interaction.user) as User;
     const avatar = user.displayAvatarURL({ dynamic: true, size: 1024 });
     const embed = new MessageEmbed()
       .setColor("RANDOM")

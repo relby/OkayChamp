@@ -14,7 +14,7 @@ export default new Command({
       required: true,
     },
   ],
-  run: async ({ interaction }) => {
+  run: async ({ interaction, args }) => {
     const { channel } = interaction.member.voice;
     if (!channel) {
       return interaction.followUp("You must join a voice channel to use that!");
@@ -24,7 +24,7 @@ export default new Command({
 
     if (!queue.connection) await queue.connect(channel);
 
-    let query = interaction.options.getString("song", true);
+    let query = args.getString("song", true);
     const result = isURL(query)
       ? await player.search(query, {
         requestedBy: interaction.member,
