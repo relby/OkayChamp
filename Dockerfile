@@ -2,11 +2,11 @@ FROM node:16
 
 WORKDIR /usr/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install && npm install -g typescript
 
-COPY . .
+COPY . ./
 
 RUN npm run build
 
