@@ -32,6 +32,6 @@ export const NSFW_CHOICES: ApplicationCommandOptionChoiceData[] = [
   { name: "random", value: "random" }
 ];
 
-export const fileName = (endpoint: string, isSpoiler: boolean): string => {
-  return `${isSpoiler ? "SPOILER_" : ""}${endpoint}.png`;
+export const fileName = (endpoint: string, isSpoiler: boolean, extention: string): string => {
+  return `${isSpoiler ? "SPOILER_" : ""}${endpoint}.${extention}`;
 }

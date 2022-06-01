@@ -5,6 +5,6 @@ export default new Command({
   description: "Replies with pong",
   run: async ({ interaction }) => {
     const latency = new Date().getTime() - interaction.createdAt.getTime();
-    interaction.followUp(`Pong! \`${latency}ms\``);
+    return interaction.followUp(`Pong! \`${latency}ms\``);
   }
 });

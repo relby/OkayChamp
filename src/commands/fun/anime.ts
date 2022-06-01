@@ -40,12 +40,14 @@ export default new Command({
     const type = args.getSubcommand(true) as "sfw" | "nsfw";
     const endpoint = args.getString('type', true);
     try {
-      const { data } = await axios.get<any, AxiosResponse<ArrayBuffer>>(`${ANIME_API_URL}/${type}/${endpoint}`, {
+      const response = await axios.get<any, AxiosResponse<ArrayBuffer>>(`${ANIME_API_URL}/${type}/${endpoint}`, {
         responseType: "arraybuffer"
       });
-      const imageBuffer = Buffer.from(data);
+
+      const extention = response.headers['content-type'].slice(-3);
+      const imageBuffer = Buffer.from(response.data);
       const isSpoiler = !(interaction.channel as TextChannel).nsfw && type === "nsfw";
-      return interaction.followUp({files: [{name: fileName(endpoint, isSpoiler), attachment: imageBuffer}]});
+      return interaction.followUp({files: [{name: fileName(endpoint, isSpoiler, extention), attachment: imageBuffer}]});
     } catch (e) {
       if (e instanceof AxiosError && e.response.status >= 500) {
         return interaction.followUp("Something went wrong! Try again!");
