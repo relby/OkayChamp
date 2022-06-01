@@ -46,7 +46,6 @@ export default new Command({
       });
 
       const extention = response.headers['content-type'].split('/').at(-1);
-      console.log(extention);
       const imageBuffer = Buffer.from(response.data);
       const isSpoiler = !(interaction.channel as TextChannel).nsfw && type === "nsfw";
       return interaction.followUp({files: [{name: fileName(endpoint, isSpoiler, extention), attachment: imageBuffer}]});
