@@ -11,6 +11,7 @@ import { Command } from "../../classes/Command";
 import { UserWithMessagesInChannel } from "../../typings/user";
 
 export default new Command({
+  type: "CHAT_INPUT",
   name: "find",
   description: "Find the frequency of the given word",
   options: [

@@ -3,6 +3,7 @@ import axios, { AxiosError } from "axios";
 import { convertUnits, Units } from "../../utils/weather";
 
 export default new Command({
+  type: "CHAT_INPUT",
   name: "weather",
   description: "Shows the weather of the specific city",
   options: [

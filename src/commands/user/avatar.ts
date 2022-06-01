@@ -2,6 +2,7 @@ import { MessageEmbed, User } from "discord.js";
 import { Command } from "../../classes/Command";
 
 export default new Command({
+  type: "CHAT_INPUT",
   name: "avatar",
   description: "Displays your avatar or someone else's avatar",
   options: [

@@ -4,6 +4,7 @@ import { Command } from "../../classes/Command";
 
 // TODO: Add option to select multiple tracks
 export default new Command({
+  type: "CHAT_INPUT",
   name: "skip",
   description: "skip",
   run: async ({ interaction }) => {

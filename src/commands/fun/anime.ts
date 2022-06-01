@@ -4,6 +4,7 @@ import { Command } from "../../classes/Command";
 import { ANIME_API_URL, fileName, NSFW_CHOICES, SFW_CHOICES } from "../../utils/anime";
 
 export default new Command({
+  type: "CHAT_INPUT",
   name: "anime",
   description: "anime",
   options: [

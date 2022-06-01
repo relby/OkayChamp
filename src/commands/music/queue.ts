@@ -6,6 +6,7 @@ const TRACKS_ON_PAGE = 10;
 const EMBED_COLOR = 0xff0000;
 
 export default new Command({
+  type: "CHAT_INPUT",
   name: "queue",
   description: "queue",
   options: [

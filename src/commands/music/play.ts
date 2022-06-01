@@ -4,6 +4,7 @@ import { Command } from "../../classes/Command";
 import { isURL } from "../../utils/music";
 
 export default new Command({
+  type: "CHAT_INPUT",
   name: "play",
   description: "Plays the fucking music",
   options: [
