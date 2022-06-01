@@ -16,5 +16,6 @@ export default new Event("interactionCreate", async (interaction) => {
             client,
             interaction: interaction as ExtendedInteraction
         });
+        console.log(`${interaction.user.username}#${interaction.user.discriminator} used /${command.name} on ${interaction.guild}`);
     }
 });

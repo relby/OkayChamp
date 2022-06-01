@@ -61,6 +61,6 @@ export default new Command({
     map.forEach(({ username, discriminator, messages }) => {
       out.push(`${username}#${discriminator} ${messages.length}`);
     });
-    interaction.followUp(`<#${channel.id}>: \n` + (out.length ? out.join("\n") : "No messages in this channel found"));
+    return interaction.followUp(`<#${channel.id}>: \n` + (out.length ? out.join("\n") : "No messages in this channel found"));
   }
 });

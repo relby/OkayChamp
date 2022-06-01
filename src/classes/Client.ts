@@ -9,6 +9,7 @@ import glob from "glob";
 import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/client";
 import { Event } from "./Event";
+import path from "path";
 
 const globPromise = promisify(glob);
 
@@ -43,10 +44,11 @@ export class ExtendedClient extends Client {
         const commandFiles = await globPromise(
             `${__dirname}/../commands/*/*{.ts,.js}`
         );
+        console.log("Commands:");
         commandFiles.forEach(async (filePath) => {
             const command: CommandType = await this.importFile(filePath);
             if (!command.name) return;
-            console.log(command);
+            console.log(`  ${path.basename(path.dirname(filePath))}: /${command.name}`);
 
             this.commands.set(command.name, command);
             slashCommands.push(command);

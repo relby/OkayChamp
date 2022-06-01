@@ -44,10 +44,9 @@ export default new Command({
     } catch (e) {
       if (e instanceof AxiosError) {
         return interaction.followUp(`Could not find \`${city}\``);
-      } else if (e instanceof TypeError) {
-        console.error(e);
-        return interaction.followUp(`Something went wrong`);
       }
+      console.error(e);
+      return interaction.followUp(`Something went wrong`);
     }
   }
 });

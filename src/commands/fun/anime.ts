@@ -47,10 +47,10 @@ export default new Command({
       const isSpoiler = !(interaction.channel as TextChannel).nsfw && type === "nsfw";
       return interaction.followUp({files: [{name: fileName(endpoint, isSpoiler), attachment: imageBuffer}]});
     } catch (e) {
-      console.error(e);
       if (e instanceof AxiosError && e.response.status >= 500) {
         return interaction.followUp("Something went wrong! Try again!");
       }
+      console.error(e);
       return interaction.followUp("Uncaught error! Please notify the developer!");
     }
   }
