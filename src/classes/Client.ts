@@ -15,7 +15,6 @@ const globPromise = promisify(glob);
 
 export class ExtendedClient extends Client {
     commands: Collection<string, CommandType> = new Collection();
-
     constructor() {
         super({ intents: 32767 });
     }
@@ -48,11 +47,34 @@ export class ExtendedClient extends Client {
         commandFiles.forEach(async (filePath) => {
             const command: CommandType = await this.importFile(filePath);
             if (!command.name) return;
-            console.log(`  ${path.basename(path.dirname(filePath))}: /${command.name} ${command.type}`);
+            console.log(`  ${path.basename(path.dirname(filePath))}: /${command.name}`);
             this.commands.set(command.name, command);
             slashCommands.push(command);
         });
-
+        // User Context
+        const userContextFiles = await globPromise(
+            `${__dirname}/../context/user/*{.ts,.js}`
+        );
+        console.log("User context commands:");
+        userContextFiles.forEach(async (filePath) => {
+            const userContext: CommandType = await this.importFile(filePath);
+            if (!userContext.name) return;
+            console.log(`  ${userContext.name}`);
+            this.commands.set(userContext.name, userContext);
+            slashCommands.push(userContext);
+        });
+        // Message Context
+        const messageContextFiles = await globPromise(
+            `${__dirname}/../context/message/*{.ts,.js}`
+        );
+        console.log("Message context commands:");
+        messageContextFiles.forEach(async (filePath) => {
+            const messageContext: CommandType = await this.importFile(filePath);
+            if (!messageContext.name) return;
+            console.log(`  ${messageContext.name}`);
+            this.commands.set(messageContext.name, messageContext);
+            slashCommands.push(messageContext);
+        });
         this.on("ready", () => {
             this.registerCommands({
                 commands: slashCommands,
