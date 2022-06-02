@@ -44,7 +44,6 @@ export default new Command({
   run: ({ interaction, args }) => {
     const user = (args.getUser("user") ?? interaction.user) as User;
     const size = (args.getInteger("size") ?? 1024) as AllowedImageSize;
-    console.log(size);
     const avatar = user.displayAvatarURL({ dynamic: true, size });
     return interaction.followUp(avatar);
   },
