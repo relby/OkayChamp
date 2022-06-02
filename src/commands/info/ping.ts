@@ -7,5 +7,5 @@ export default new Command({
   run: async ({ interaction }) => {
     const latency = new Date().getTime() - interaction.createdAt.getTime();
     return interaction.followUp(`Pong! \`${latency}ms\``);
-  }
+  },
 });

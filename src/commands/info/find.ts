@@ -33,21 +33,32 @@ export default new Command({
     const word = args.getString("word", true).trim();
     const channel = args.getChannel("channel", true) as TextChannel;
 
-    const map: Collection<Snowflake, UserWithMessagesInChannel> = new Collection();
+    const map: Collection<Snowflake, UserWithMessagesInChannel> =
+      new Collection();
     let msgPtr = await channel.messages
       .fetch({ limit: 1 })
-      .then(messagePage => (messagePage.size === 1 ? messagePage.at(0) : null));
+      .then((messagePage) =>
+        messagePage.size === 1 ? messagePage.at(0) : null
+      );
 
     while (msgPtr) {
       await channel.messages
         .fetch({ limit: 100, before: msgPtr.id })
-        .then(messagePage => {
-          messagePage.forEach(msg => {
-            const regex = new RegExp("(\\P{L}|^)" + `(${word})` + "(\\P{L}|$)", "ium");
+        .then((messagePage) => {
+          messagePage.forEach((msg) => {
+            const regex = new RegExp(
+              "(\\P{L}|^)" + `(${word})` + "(\\P{L}|$)",
+              "ium"
+            );
             if (msg.content.match(regex) == null) return;
 
             const id = msg.author.id;
-            const userWithMsgs = map.has(id) ? map.get(id)! : Object.assign({ messages: <Message[]>[], channel: channel }, msg.author);
+            const userWithMsgs = map.has(id)
+              ? map.get(id)!
+              : Object.assign(
+                  { messages: <Message[]>[], channel: channel },
+                  msg.author
+                );
 
             userWithMsgs.messages.push(msg);
             map.set(id, Object.assign(userWithMsgs, msg.author));
@@ -59,12 +70,11 @@ export default new Command({
               interaction.editReply(`<#${channel.id}>: \n` + out.join("\n"));
             }
           });
-          // Update our message pointer to be last message in page of messages
           msgPtr = 0 < messagePage.size ? messagePage.at(messagePage.size - 1) : null;
         });
     }
     if (!interaction.replied) {
       interaction.editReply(`No messages found in <#${channel.id}>`);
     }
-  }
+  },
 });

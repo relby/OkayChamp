@@ -1,4 +1,9 @@
-import { AllowedImageSize, ApplicationCommandOptionChoiceData, MessageEmbed, User } from "discord.js";
+import {
+  AllowedImageSize,
+  ApplicationCommandOptionChoiceData,
+  MessageEmbed,
+  User,
+} from "discord.js";
 import { Command } from "../../classes/Command";
 
 const SIZE_CHOICES: ApplicationCommandOptionChoiceData[] = [
@@ -14,8 +19,8 @@ const SIZE_CHOICES: ApplicationCommandOptionChoiceData[] = [
   { name: "600", value: 600 },
   { name: "1024", value: 1024 },
   { name: "2048", value: 2048 },
-  { name: "4096", value: 4096 }
-]
+  { name: "4096", value: 4096 },
+];
 
 export default new Command({
   type: "CHAT_INPUT",
@@ -26,15 +31,15 @@ export default new Command({
       name: "user",
       description: "The user to get avatar for",
       type: "USER",
-      required: false
+      required: false,
     },
     {
       name: "size",
       description: "Choose a size of an image",
       type: "INTEGER",
       required: false,
-      choices: SIZE_CHOICES
-    }
+      choices: SIZE_CHOICES,
+    },
   ],
   run: ({ interaction, args }) => {
     const user = (args.getUser("user") ?? interaction.user) as User;

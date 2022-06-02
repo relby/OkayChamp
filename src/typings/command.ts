@@ -39,16 +39,19 @@ type MessageContextRunFunction = (options: MessageContextRunOptions) => any;
 export type ChatCommandType = {
   userPermissions?: PermissionResolvable[];
   run: ChatCommandRunFunction;
-} & ChatInputApplicationCommandData
+} & ChatInputApplicationCommandData;
 
 export type UserContextCommand = {
   userPermissions?: PermissionResolvable[];
   run: UserContextRunFunction;
-} & UserApplicationCommandData
+} & UserApplicationCommandData;
 
 export type MessageContextCommand = {
   userPermissions?: PermissionResolvable[];
   run: MessageContextRunFunction;
 } & MessageApplicationCommandData;
 
-export type CommandType = ChatCommandType | UserContextCommand | MessageContextCommand;
+export type CommandType =
+  | ChatCommandType
+  | UserContextCommand
+  | MessageContextCommand;

@@ -9,9 +9,12 @@ export default new Command({
   description: "skip",
   run: async ({ interaction }) => {
     const queue = player.getQueue(interaction.member.guild);
-    if (!queue || !queue.playing) return interaction.followUp("**No music is being played!**");
+    if (!queue || !queue.playing)
+      return interaction.followUp("**No music is being played!**");
     const currentTrack = queue.current;
     const ok = queue.skip();
-    return interaction.followUp(ok ? `Skipped **${currentTrack.title}**!` : `Something went wrong!`);
-  }
+    return interaction.followUp(
+      ok ? `Skipped **${currentTrack.title}**!` : `Something went wrong!`
+    );
+  },
 });

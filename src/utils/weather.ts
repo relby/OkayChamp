@@ -1,4 +1,4 @@
-export type Units = "metric" | "imperial"
+export type Units = "metric" | "imperial";
 
 export const convertUnits = (units: Units): string => {
   switch (units) {
@@ -7,5 +7,4 @@ export const convertUnits = (units: Units): string => {
     case "imperial":
       return "°F";
   }
-}
-
+};

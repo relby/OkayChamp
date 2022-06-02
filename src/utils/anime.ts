@@ -1,8 +1,8 @@
 import { ApplicationCommandOptionChoiceData } from "discord.js";
 
-export const ANIME_API_URL = "https://waifu.now.sh/"
+export const ANIME_API_URL = "https://waifu.now.sh/";
 
-export const SFW_CHOICES: ApplicationCommandOptionChoiceData[]  = [
+export const SFW_CHOICES: ApplicationCommandOptionChoiceData[] = [
   { name: "waifu", value: "waifu" },
   { name: "neko", value: "neko" },
   { name: "shinobu", value: "shinobu" },
@@ -22,16 +22,20 @@ export const SFW_CHOICES: ApplicationCommandOptionChoiceData[]  = [
   { name: "dance", value: "dance" },
   { name: "cringe", value: "cringe" },
   { name: "blush", value: "blush" },
-  { name: "random", value: "random" }
+  { name: "random", value: "random" },
 ];
 export const NSFW_CHOICES: ApplicationCommandOptionChoiceData[] = [
   { name: "waifu", value: "waifu" },
   { name: "neko", value: "neko" },
   { name: "trap", value: "trap" },
   { name: "blowjob", value: "blowjob" },
-  { name: "random", value: "random" }
+  { name: "random", value: "random" },
 ];
 
-export const fileName = (endpoint: string, isSpoiler: boolean, extention: string): string => {
+export const fileName = (
+  endpoint: string,
+  isSpoiler: boolean,
+  extention: string
+) => {
   return `${isSpoiler ? "SPOILER_" : ""}${endpoint}.${extention}`;
-}
+};

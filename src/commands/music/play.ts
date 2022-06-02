@@ -28,13 +28,13 @@ export default new Command({
     let query = args.getString("song", true);
     const result = isURL(query)
       ? await player.search(query, {
-        requestedBy: interaction.member,
-        searchEngine: QueryType.YOUTUBE_VIDEO
-      })
+          requestedBy: interaction.member,
+          searchEngine: QueryType.YOUTUBE_VIDEO,
+        })
       : await player.search(query, {
-        requestedBy: interaction.member,
-        searchEngine: QueryType.YOUTUBE_SEARCH
-      })
+          requestedBy: interaction.member,
+          searchEngine: QueryType.YOUTUBE_SEARCH,
+        });
 
     if (!result.tracks.length) {
       return interaction.followUp("**Not found.**");
@@ -44,6 +44,8 @@ export default new Command({
     queue.addTrack(song);
 
     if (!queue.playing) await queue.play();
-    return interaction.followUp(`**${song.title}** Added to queue (\`${song.duration}\`)!`);
-  }
+    return interaction.followUp(
+      `**${song.title}** Added to queue (\`${song.duration}\`)!`
+    );
+  },
 });
