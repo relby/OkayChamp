@@ -63,6 +63,7 @@ export default new Command({
             userWithMsgs.messages.push(msg);
             map.set(id, Object.assign(userWithMsgs, msg.author));
             const out: string[] = [];
+            map.sort((a, b) => b.messages.length - a.messages.length);
             map.forEach(({ username, discriminator, messages }) => {
               out.push(`${username}#${discriminator} ${messages.length}`);
             });
