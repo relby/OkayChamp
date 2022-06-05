@@ -21,10 +21,19 @@ export default new Command({
       return interaction.followUp("You must join a voice channel to use that!");
     }
 
-    const queue = await player.createQueue(channel.guild);
-
-    if (!queue.connection) await queue.connect(channel);
-
+    const queue = player.createQueue(channel.guild, {
+      metadata: { channel }
+    });
+    try {
+      if (!queue.connection) await queue.connect(channel);
+    } catch {
+      queue.destroy();
+      return await interaction.followUp({
+        content: "Could not join your voice channel",
+        ephemeral: true
+      });
+    }
+    console.log(queue);
     let query = args.getString("song", true);
     const result = isURL(query)
       ? await player.search(query, {
