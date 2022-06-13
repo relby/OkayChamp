@@ -33,18 +33,11 @@ export default new Command({
         ephemeral: true
       });
     }
-    console.log(queue);
     let query = args.getString("song", true);
-    const result = isURL(query)
-      ? await player.search(query, {
-          requestedBy: interaction.member,
-          searchEngine: QueryType.YOUTUBE_VIDEO,
-        })
-      : await player.search(query, {
-          requestedBy: interaction.member,
-          searchEngine: QueryType.YOUTUBE_SEARCH,
-        });
-
+    const result = await player.search(query, {
+      requestedBy: interaction.member,
+      searchEngine: QueryType.AUTO
+    });
     if (!result.tracks.length) {
       return interaction.followUp("**Not found.**");
     }
