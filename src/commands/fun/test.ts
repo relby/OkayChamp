@@ -5,7 +5,12 @@ export default new Command({
   name: "test",
   description: "test",
   run: ({ client, interaction }) => {
-    client.guilds.cache.forEach(console.log);
+    client.guilds.cache.forEach(async (guild) => {
+      if (guild.id === "702799408466624586") {
+        const channel = await guild.channels.fetch("702799409238376472");
+        console.log(channel);
+      }
+    });
     return interaction.followUp("Something went wrong");
   }
 })
